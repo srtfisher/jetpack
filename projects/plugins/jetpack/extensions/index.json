@@ -48,7 +48,8 @@
 		"google-docs-embed",
 		"recipe",
 		"videopress/video",
-		"videopress/video-chapters"
+		"videopress/video-chapters",
+		"sharing-buttons"
 	],
 	"experimental": [ "anchor-fm", "premium-content", "conversation", "dialogue" ],
 	"no-post-editor": [
