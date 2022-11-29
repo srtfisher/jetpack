@@ -6,6 +6,8 @@
  */
 use Automattic\Jetpack\Constants;
 
+require_once JETPACK__PLUGIN_DIR . '/_inc/lib/fetch-subscriber-count.php';
+
 /**
  * Subscribers: Get subscriber count
  *
@@ -77,7 +79,7 @@ class WPCOM_REST_API_V2_Endpoint_Subscribers extends WP_REST_Controller {
 			delete_transient( 'wpcom_subscribers_total_no_publicize' );
 		}
 		$include_publicize_subscribers = isset( $request['include_publicize_subscribers'] ) ? rest_sanitize_boolean( $request['include_publicize_subscribers'] ) : true;
-		$subscriber_info               = Jetpack_Subscriptions_Widget::fetch_subscriber_count( $include_publicize_subscribers );
+		$subscriber_info               = \Automattic\Jetpack\fetch_subscriber_count( $include_publicize_subscribers );
 		$subscriber_count              = $subscriber_info['value'];
 
 		return array(
@@ -95,7 +97,7 @@ class WPCOM_REST_API_V2_Endpoint_Subscribers extends WP_REST_Controller {
 			delete_transient( 'wpcom_subscribers_totals' );
 		}
 
-		$subscriber_info  = Jetpack_Subscriptions_Widget::fetch_subscriber_counts();
+		$subscriber_info  = \Automattic\Jetpack\fetch_subscriber_counts();
 		$subscriber_count = $subscriber_info['value'];
 
 		return array( 'counts' => $subscriber_count );
