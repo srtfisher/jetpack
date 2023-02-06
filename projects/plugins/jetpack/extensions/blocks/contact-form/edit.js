@@ -21,7 +21,7 @@ import { withDispatch, withSelect } from '@wordpress/data';
 import { Fragment, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
-import { filter, get, isArray, map } from 'lodash';
+import { filter, get, isArray, map, every, remove } from 'lodash';
 import InspectorHint from '../../shared/components/inspector-hint';
 import { childBlocks } from './child-blocks';
 import CRMIntegrationSettings from './components/jetpack-crm-integration/jetpack-crm-integration-settings';
@@ -90,6 +90,7 @@ export function JetpackContactFormEdit( {
 		jetpackCRM,
 		formTitle,
 		salesforceData,
+		hiddenFields,
 	} = attributes;
 
 	const [ isPatternsModalOpen, setIsPatternsModalOpen ] = useState( false );
@@ -142,6 +143,14 @@ export function JetpackContactFormEdit( {
 			setAttributes( { subject: emailSubject } );
 		}
 	}, [ to, postAuthorEmail, subject, siteTitle, postTitle, setAttributes ] );
+
+	useEffect( () => {
+		if ( ! hiddenFields.length ) {
+			setAttributes( {
+				hiddenFields: [ { uuid: Math.random() * 1000000, name: '', value: '', edit: 'both' } ],
+			} );
+		}
+	} );
 
 	const renderSubmissionSettings = () => {
 		return (
@@ -256,6 +265,66 @@ export function JetpackContactFormEdit( {
 		return renderVariationPicker();
 	}
 
+	const setHiddenField = ( key, newName, newValue, editMode ) => {
+		const newHiddenFields = map( hiddenFields, ( { uuid, name, value, edit } ) => {
+			const hiddenField = {
+				uuid,
+				name,
+				value,
+				edit,
+			};
+			if ( key === uuid ) {
+				hiddenField.name = editMode === 'both' || editMode === 'name' ? newName : name;
+				hiddenField.value = editMode === 'both' || editMode === 'name' ? newValue : value;
+			}
+			return hiddenField;
+		} );
+
+		remove( newHiddenFields, hf => ! hf.name.trim() && ! hf.value.trim() );
+
+		// if all hidden fields have some value, add an empty one at the end
+		every( newHiddenFields, 'value' ) &&
+			newHiddenFields.push( {
+				uuid: Math.random() * 1000000,
+				name: '',
+				value: '',
+				edit: 'both',
+			} );
+
+		setAttributes( {
+			hiddenFields: newHiddenFields,
+		} );
+	};
+
+	const HiddenFieldInspector = ( props, setter ) => {
+		const { uuid, name, value, edit = 'both' } = props;
+		return (
+			<div
+				key={ uuid }
+				style={ { display: 'flex' } }
+				className="jetpack-contact-form__hidden-fields-panel"
+			>
+				{ ( edit === 'both' || edit === 'name' ) && (
+					<TextControl
+						value={ name }
+						placeholder={ __( 'Field name', 'jetpack' ) }
+						onChange={ fieldName => setter( uuid, fieldName, value, edit ) }
+					/>
+				) }
+				{ ( ! edit || edit === 'value' || edit === 'none' ) && <span>{ name }</span> }
+				{ ( edit === 'both' || edit === 'value' ) && (
+					<TextControl
+						value={ value }
+						placeholder={ __( 'Field value', 'jetpack' ) }
+						onChange={ fieldValue => setter( uuid, name, fieldValue, edit ) }
+					/>
+				) }
+				{ ( ! edit || edit === 'value' || edit === 'none' ) && <span>{ value }</span> }
+			</div>
+		);
+	};
+
+	console.log( hiddenFields );
 	return (
 		<>
 			<InspectorControls>
@@ -294,6 +363,17 @@ export function JetpackContactFormEdit( {
 						</PanelBody>
 					</Fragment>
 				) }
+				<PanelBody title={ __( 'Hidden Fields', 'jetpack' ) }>
+					<InspectorHint>
+						{ __(
+							"Use hidden fields to get fixed data alongside visitor's submissions.",
+							'jetpack'
+						) }
+					</InspectorHint>
+					{ map( hiddenFields, ( { uuid, name, value, edit } ) => {
+						return HiddenFieldInspector( { uuid, name, value, edit }, setHiddenField );
+					} ) }
+				</PanelBody>
 			</InspectorControls>
 
 			<div className={ formClassnames } style={ style }>
