@@ -4,7 +4,7 @@
 	import Table from './recommendations/Table.svelte';
 </script>
 
-<div class="recommendations-page">
+<div class="recommendations-page jb-container">
 	<Header />
 	<Table />
 	<Pagination />
