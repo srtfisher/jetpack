@@ -21,6 +21,7 @@
 		<a href={data.pageLink}>{data.pageTitle}</a>
 	</div>
 	<div class="chevron">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<span on:click={() => ( expanded = ! expanded )}>{expanded ? '▲' : '▼'}</span>
 	</div>
 </div>
