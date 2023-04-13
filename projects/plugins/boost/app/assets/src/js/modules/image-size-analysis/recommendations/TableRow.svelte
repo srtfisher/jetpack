@@ -20,9 +20,9 @@
 	<div class="page">
 		<a href={data.pageLink}>{data.pageTitle}</a>
 	</div>
-	<div class="chevron">
-		<!-- svelte-ignore a11y-click-events-have-key-events -->
-		<span on:click={() => ( expanded = ! expanded )}>{expanded ? '▲' : '▼'}</span>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<div class="chevron" on:click={() => ( expanded = ! expanded )}>
+		<span>{expanded ? '▲' : '▼'}</span>
 	</div>
 </div>
 
