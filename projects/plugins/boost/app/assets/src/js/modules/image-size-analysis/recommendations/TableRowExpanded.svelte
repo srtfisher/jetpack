@@ -4,39 +4,38 @@
 	export let data: ImageMeta;
 </script>
 
-<tr>
-	<td colspan="5">
-		<div class="table-row-expanded">
-			<div class="image-details">
-				<h4>Image Details</h4>
-				<p>File dimensions: {data.fileDimensions}</p>
-				<p>Expected dimensions: {data.expectedDimensions}</p>
-				<p>Size on screen: {data.sizeOnScreen}</p>
-			</div>
-			<div class="fix-options">
-				<h4>How to fix</h4>
-				<p>{data.fixDescription}</p>
-				<button>Fix on page</button>
-				<button class="ignore-btn">Ignore</button>
-			</div>
-		</div>
-	</td>
-</tr>
+<div class="table-row-expanded">
+	<div class="image-details">
+		<h4>Image Details</h4>
+		<p>File dimensions: {data.fileDimensions}</p>
+		<p>Expected dimensions: {data.expectedDimensions}</p>
+		<p>Size on screen: {data.sizeOnScreen}</p>
+	</div>
+	<div class="fix-options">
+		<h4>How to fix</h4>
+		<p>{data.fixDescription}</p>
+		<button>Fix on page</button>
+		<button class="ignore-btn">Ignore</button>
+	</div>
+</div>
 
 <style lang="scss">
 	.table-row-expanded {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
+		display: flex;
+		justify-content: space-between;
 		padding: 1rem;
 	}
 
 	.image-details {
+		flex: 1;
 		border-right: 1px solid #ddd;
+		padding-right: 1rem;
 	}
 
 	.fix-options {
+		flex: 1;
 		text-align: right;
+		padding-left: 1rem;
 	}
 
 	button {

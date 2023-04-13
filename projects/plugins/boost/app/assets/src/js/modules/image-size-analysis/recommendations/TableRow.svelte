@@ -6,29 +6,24 @@
 	let expanded = false;
 </script>
 
-<tr>
-	<td>
-		<div class="table-row">
-			<img src={data.thumbnail} alt={data.title} width="50" height="50" />
-			<div>
-				<div>{data.title}</div>
-				<div>{data.urlPreview}</div>
-			</div>
-		</div>
-	</td>
-	<td>
-		<div>{data.originalSize} -> {data.optimizedSize}</div>
-	</td>
-	<td>
-		<img src={data.deviceIcon} alt={data.deviceType} width="24" height="24" />
-	</td>
-	<td>
+<div class="table-row">
+	<div class="thumbnail">
+		<img src={data.thumbnail} alt={data.title} width="64" height="64" />
+	</div>
+	<div class="title">
+		<div>{data.title}</div>
+		<div>{data.urlPreview}</div>
+	</div>
+	<div class="device">
+		<img src={data.deviceIcon} alt={data.deviceType} />
+	</div>
+	<div class="page">
 		<a href={data.pageLink}>{data.pageTitle}</a>
-	</td>
-	<td>
-		<span class="chevron" on:click={() => ( expanded = ! expanded )}>{expanded ? '▲' : '▼'}</span>
-	</td>
-</tr>
+	</div>
+	<div class="chevron">
+		<span on:click={() => ( expanded = ! expanded )}>{expanded ? '▲' : '▼'}</span>
+	</div>
+</div>
 
 {#if expanded}
 	<TableRowExpanded {data} />
@@ -37,12 +32,31 @@
 <style lang="scss">
 	.table-row {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr auto;
+		width: 100%;
+		grid-template-columns: 64px 7fr 1fr 3fr 1fr;
+		justify-content: space-between;
 		align-items: center;
 		gap: 1rem;
 	}
 
+	.table-row > div:nth-child( 2 ) {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.chevron {
 		cursor: pointer;
+		text-align: right;
+	}
+
+	@media ( max-width: 768px ) {
+		.table-row {
+			grid-template-columns: 64px 1fr auto;
+		}
+
+		.device,
+		.page {
+			display: none;
+		}
 	}
 </style>
