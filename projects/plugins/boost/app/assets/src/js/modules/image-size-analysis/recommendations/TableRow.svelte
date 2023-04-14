@@ -25,11 +25,11 @@
 
 	<div class="jb-column-potential-size">
 		<div class="pill">
-			{data.image.weight.current} KB
+			{Math.round( data.image.weight.current )} KB
 		</div>
 		&nbsp;→&nbsp;
 		<div class="pill">
-			{data.image.weight.potential} KB
+			{Math.round( data.image.weight.potential )} KB
 		</div>
 	</div>
 
