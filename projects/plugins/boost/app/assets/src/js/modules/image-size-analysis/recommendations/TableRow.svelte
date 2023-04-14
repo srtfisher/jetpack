@@ -6,6 +6,7 @@
 	export let data: ImageMeta;
 	let expanded = false;
 	let hover = Math.random() > 0.5;
+	const title = data.image.url.split( '/' ).pop();
 </script>
 
 <div
@@ -14,11 +15,11 @@
 	on:mouseleave={() => ( hover = false )}
 >
 	<div class="thumbnail">
-		<img src={data.thumbnail} alt={data.title} width="64" height="64" />
+		<img src={data.thumbnail} alt={title} width="64" height="64" />
 	</div>
 	<div class="title">
-		<div>{data.title}</div>
-		<div>{data.urlPreview}</div>
+		<div><b>{title}</b></div>
+		<div>{data.page.url}</div>
 	</div>
 
 	{#if hover}
@@ -27,10 +28,14 @@
 		</div>
 	{:else}
 		<div class="device">
-			<img src={data.deviceIcon} alt={data.deviceType} />
+			{#if data.device_type === 'phone'}
+				📱
+			{:else}
+				💻
+			{/if}
 		</div>
 		<div class="page">
-			<a href={data.pageLink}>{data.pageTitle}</a>
+			<a href={data.page.url}>{data.page.title}</a>
 		</div>
 	{/if}
 

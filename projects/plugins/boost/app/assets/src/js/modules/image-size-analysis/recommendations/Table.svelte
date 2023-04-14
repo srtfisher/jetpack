@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { imageData } from '../ApiMock';
+	import { imageStore } from '../ApiMock';
 	import TableRow from './TableRow.svelte';
 </script>
 
@@ -11,7 +11,7 @@
 		<div class="table-cell">Page/Post</div>
 		<div class="table-cell" />
 	</div>
-	{#each imageData as data}
+	{#each $imageStore as data}
 		<TableRow {data} />
 	{/each}
 </div>

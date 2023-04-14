@@ -2,18 +2,23 @@
 	import { ImageMeta } from '../ApiMock';
 
 	export let data: ImageMeta;
+
+	const dimensions = `${ data.image.dimensions.file.width } x ${ data.image.dimensions.file.height }`;
+	const sizeOnScreen = `${ data.image.dimensions.size_on_screen.width } x ${ data.image.dimensions.size_on_screen.height }`;
+	const expectedDimensions = `${ data.image.dimensions.expected.width } x ${ data.image.dimensions.expected.height }`;
 </script>
 
 <div class="table-row-expanded">
 	<div class="image-details">
 		<h4>Image Details</h4>
-		<p>File dimensions: {data.fileDimensions}</p>
-		<p>Expected dimensions: {data.expectedDimensions}</p>
-		<p>Size on screen: {data.sizeOnScreen}</p>
+		<p>File dimensions: {dimensions} px</p>
+		<p>Expected dimensions: {expectedDimensions} px</p>
+		<p>Size on screen: {sizeOnScreen} px</p>
 	</div>
+
 	<div class="fix-options">
 		<h4>How to fix</h4>
-		<p>{data.fixDescription}</p>
+		<p>{data.instructions}</p>
 		<button>Fix on page</button>
 		<button class="ignore-btn">Ignore</button>
 	</div>

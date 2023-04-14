@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { readable, writable } from 'svelte/store';
 
 type CategoryState = {
 	name: string;
@@ -33,67 +33,125 @@ export const categories = writable< CategoryState[] >( [
 		done: false,
 	},
 ] );
-
-export interface ImageMeta {
+export type Dimensions = { width: number; height: number };
+export type ImageMeta = {
 	thumbnail: string;
-	title: string;
-	urlPreview: string;
-	originalSize: string;
-	optimizedSize: string;
-	deviceIcon: string;
-	deviceType: string;
-	pageLink: string;
-	pageTitle: string;
-	fileDimensions: string;
-	expectedDimensions: string;
-	sizeOnScreen: string;
-	fixDescription: string;
+	image: {
+		url: string;
+		dimensions: {
+			file: Dimensions;
+			expected: Dimensions;
+			size_on_screen: Dimensions;
+		},
+		weight: {
+			current: number;
+			potential: number;
+		}
+	},
+	page: {
+		id: number;
+		url: string;
+		title: string;
+	};
+	device_type: 'phone' | 'desktop';
+
+	instructions: string;
 }
 
-export const imageData: ImageMeta[] = [
+const sampleData: ImageMeta[] = [
 	{
-		thumbnail: 'https://via.placeholder.com/50',
-		title: 'Sample Image 1',
-		urlPreview: 'example.com/home',
-		originalSize: '2.5MB',
-		optimizedSize: '0.5MB',
-		deviceIcon: 'https://via.placeholder.com/24',
-		deviceType: 'desktop',
-		pageLink: 'https://example.com/home',
-		pageTitle: 'Home',
-		fileDimensions: '1920x1080',
-		expectedDimensions: '1280x720',
-		sizeOnScreen: '25%',
-		fixDescription: 'Resize the image to the expected dimensions and compress it.',
+		thumbnail: 'https://placekitten.com/50',
+		image: {
+			url: 'https://placekitten.com/1920/1080',
+			dimensions: {
+				file: {
+					width: 1920,
+					height: 1080,
+				},
+				expected: {
+					width: 1280,
+					height: 720,
+				},
+				size_on_screen: {
+					width: 25,
+					height: 25,
+				},
+			},
+			weight: {
+				current: 2500,
+				potential: 500,
+			},
+		},
+		page: {
+			id: 1,
+			url: 'example.com/home',
+			title: 'Home',
+		},
+		device_type: 'desktop',
+		instructions: 'Resize the image to the expected dimensions and compress it.',
 	},
 	{
-		thumbnail: 'https://via.placeholder.com/50',
-		title: 'Sample Image 2',
-		urlPreview: 'example.com/about',
-		originalSize: '1.2MB',
-		optimizedSize: '0.3MB',
-		deviceIcon: 'https://via.placeholder.com/24',
-		deviceType: 'phone',
-		pageLink: 'https://example.com/about',
-		pageTitle: 'About Us',
-		fileDimensions: '800x600',
-		expectedDimensions: '400x300',
-		sizeOnScreen: '50%',
-		fixDescription: 'Resize the image to the expected dimensions and compress it.',
+		thumbnail: 'https://placekitten.com/50',
+		image: {
+			url: 'https://placekitten.com/800/600',
+			dimensions: {
+				file: {
+					width: 800,
+					height: 600,
+				},
+				expected: {
+					width: 400,
+					height: 300,
+				},
+				size_on_screen: {
+					width: 50,
+					height: 50,
+				},
+			},
+			weight: {
+				current: 1200,
+				potential: 300,
+			},
+		},
+		page: {
+			id: 2,
+			url: 'example.com/about',
+			title: 'About Us',
+		},
+		device_type: 'phone',
+		instructions: 'Resize the image to the expected dimensions and compress it.',
 	},
 	{
-		thumbnail: 'https://via.placeholder.com/50',
-		title: 'Sample Image 3',
-		urlPreview: 'example.com/contact',
-		originalSize: '3.0MB',
-		optimizedSize: '0.8MB',
-		deviceIcon: 'https://via.placeholder.com/24',
-		deviceType: 'desktop',
-		pageLink: 'https://example.com/contact',
-		pageTitle: 'Contact',
-		fileDimensions: '2560x1440',
-		expectedDimensions: '1920x1080',
-		sizeOnScreen: '30%',
-		fixDescription: 'Resize the image to the expected dimensions and compress it.',
+		thumbnail: 'https://placekitten.com/50',
+		image: {
+			url: 'https://placekitten.com/2560/1440',
+			dimensions: {
+				file: {
+					width: 2560,
+					height: 1440,
+				},
+				expected: {
+					width: 1920,
+					height: 1080,
+				},
+				size_on_screen: {
+					width: 30,
+					height: 30,
+				},
+			},
+			weight: {
+				current: 3000,
+				potential: 800,
+			},
+		},
+		page: {
+			id: 3,
+			url: 'example.com/contact',
+			title: 'Contact',
+		},
+		device_type: 'desktop',
+		instructions: 'Resize the image to the expected dimensions and compress it.',
 	},
 ];
+
+export const imageStore = readable<ImageMeta[]>( sampleData, () => () => {} );
