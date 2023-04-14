@@ -5,11 +5,10 @@
 
 <div class="table">
 	<div class="table-header">
-		<div class="table-cell">Image</div>
-		<div class="table-cell">Potential Size</div>
-		<div class="table-cell">Device</div>
-		<div class="table-cell">Page/Post</div>
-		<div class="table-cell" />
+		<div class="jb-column-image">Image</div>
+		<div class="jb-column-potential-size">Potential Size</div>
+		<div class="jb-column-device">Device</div>
+		<div class="jb-column-page">Page/Post</div>
 	</div>
 	{#each $imageStore as data}
 		<TableRow {data} />
@@ -17,21 +16,27 @@
 </div>
 
 <style lang="scss">
-	.table {
-		display: grid;
-		grid-template-columns: 1fr;
-	}
-
 	.table-header {
-		display: grid;
-		grid-template-columns: 64px 7fr 1fr 3fr 1fr;
+		display: flex;
+		gap: 10px;
+		padding: 10px;
 		background-color: #f2f2f2;
 		border-bottom: 1px solid #ddd;
+
+		justify-content: space-between;
 	}
 
-	.table-cell {
-		padding: 8px;
-		text-align: left;
+	.jb-column-image {
+		width: 40%;
+	}
+	.jb-column-device {
+		width: 64px;
+	}
+	.jb-column-potential-size {
+		width: 20%;
+	}
+	.jb-column-page {
+		flex-grow: 1;
 	}
 
 	@media ( max-width: 768px ) {

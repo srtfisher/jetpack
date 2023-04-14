@@ -14,33 +14,43 @@
 	on:mouseenter={() => ( hover = true )}
 	on:mouseleave={() => ( hover = false )}
 >
-	<div class="thumbnail">
+	<div class="jb-column-thumbnail">
 		<img src={data.thumbnail} alt={title} width="64" height="64" />
 	</div>
-	<div class="title">
+
+	<div class="jb-column-title">
 		<div><b>{title}</b></div>
 		<div>{data.page.url}</div>
 	</div>
 
-	{#if hover}
-		<div class="hover">
-			<TableRowHover />
+	<div class="jb-column-potential-size">
+		<div class="pill">
+			{data.image.weight.current} KB
 		</div>
-	{:else}
-		<div class="device">
-			{#if data.device_type === 'phone'}
-				📱
-			{:else}
-				💻
-			{/if}
+		&nbsp;→&nbsp;
+		<div class="pill">
+			{data.image.weight.potential} KB
 		</div>
-		<div class="page">
-			<a href={data.page.url}>{data.page.title}</a>
-		</div>
-	{/if}
+	</div>
+
+	<div class="jb-column-hover">
+		<TableRowHover />
+	</div>
+
+	<div class="jb-column-device">
+		{#if data.device_type === 'phone'}
+			📱
+		{:else}
+			💻
+		{/if}
+	</div>
+
+	<div class="jb-column-page">
+		<a href={data.page.url}>{data.page.title}</a>
+	</div>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="chevron" on:click={() => ( expanded = ! expanded )}>
+	<div class="jb-column-arrow" on:click={() => ( expanded = ! expanded )}>
 		<span>{expanded ? '▲' : '▼'}</span>
 	</div>
 </div>
@@ -51,28 +61,69 @@
 
 <style lang="scss">
 	.table-row {
-		display: grid;
-		width: 100%;
-		grid-template-columns: 64px 7fr 1fr 3fr 1fr;
-		justify-content: space-between;
-		align-items: center;
-		gap: 1rem;
-		height: 150px;
-	}
-
-	.table-row > div:nth-child( 2 ) {
 		display: flex;
-		flex-direction: column;
-	}
+		align-items: center;
+		height: 150px;
+		gap: 10px;
+		padding: 10px;
 
-	.chevron {
+		.jb-column-hover {
+			display: none;
+		}
+		&:hover {
+			.jb-column-hover {
+				display: block;
+			}
+			.jb-column-device,
+			.jb-column-page {
+				display: none;
+			}
+		}
+
+		// div {
+		// 	border: 1px solid gray;
+		// }
+	}
+	.jb-column-thumbnail {
+		width: 64px;
+		img {
+			display: block;
+		}
+	}
+	.jb-column-title {
+		// header - thumbnail - gap
+		min-width: calc( 40% - 64px - 10px );
+		margin-right: auto;
+	}
+	.jb-column-hover {
+		width: 40%;
+	}
+	.jb-column-potential-size {
+		width: 20%;
+
+		display: flex;
+		align-items: center;
+		.pill {
+			padding: 0.25rem 0.5rem;
+			border-radius: 1rem;
+			background-color: #f2f2f2;
+		}
+	}
+	.jb-column-device {
+		width: 64px;
+		text-align: center;
+	}
+	.jb-column-page {
+		flex-grow: 1;
+	}
+	.jb-column-arrow {
 		cursor: pointer;
 		text-align: right;
+		width: 64px;
 	}
 
-	.hover {
-		// Replacing 2 columns, span 2
-		grid-column: span 2;
+	.jb-column-hover {
+		// width: calc( 20% + 100px + 64px - 40px );
 	}
 
 	@media ( max-width: 768px ) {
@@ -84,5 +135,9 @@
 		.page {
 			display: none;
 		}
+	}
+
+	.potential-size {
+		display: flex;
 	}
 </style>
