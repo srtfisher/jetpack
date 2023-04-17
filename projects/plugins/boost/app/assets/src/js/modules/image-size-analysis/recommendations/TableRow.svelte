@@ -2,6 +2,7 @@
 	import { ImageMeta } from '../ApiMock';
 	import TableRowExpanded from './TableRowExpanded.svelte';
 	import TableRowHover from './TableRowHover.svelte';
+	import Pill from './components/Pill.svelte';
 
 	export let data: ImageMeta;
 	let expanded = false;
@@ -24,13 +25,13 @@
 	</div>
 
 	<div class="jb-column-potential-size">
-		<div class="pill">
+		<Pill color="#facfd2">
 			{Math.round( data.image.weight.current )} KB
-		</div>
-		&nbsp;→&nbsp;
-		<div class="pill">
+		</Pill>
+		<div class="jb-arrow">→</div>
+		<Pill color="#d0e6b8">
 			{Math.round( data.image.weight.potential )} KB
-		</div>
+		</Pill>
 	</div>
 
 	<div class="jb-column-hover">
@@ -103,11 +104,7 @@
 
 		display: flex;
 		align-items: center;
-		.pill {
-			padding: 0.25rem 0.5rem;
-			border-radius: 1rem;
-			background-color: #f2f2f2;
-		}
+		gap: 10px;
 	}
 	.jb-column-device {
 		width: 64px;
