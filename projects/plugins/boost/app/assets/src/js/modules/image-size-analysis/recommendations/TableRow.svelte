@@ -3,6 +3,7 @@
 	import TableRowExpanded from './TableRowExpanded.svelte';
 	import TableRowHover from './TableRowHover.svelte';
 	import Pill from './components/Pill.svelte';
+	import RowTitle from './components/RowTitle.svelte';
 	import Thumbnail from './components/Thumbnail.svelte';
 
 	export let data: ImageMeta;
@@ -17,12 +18,11 @@
 	on:mouseleave={() => ( hover = false )}
 >
 	<div class="jb-table-row__thumbnail">
-		<Thumbnail url={data.image.url} {title} width={65} height={65} />
+		<Thumbnail {title} url={data.image.url} width={65} height={65} />
 	</div>
 
 	<div class="jb-table-row__title">
-		<div><b>{title}</b></div>
-		<div>{data.page.url}</div>
+		<RowTitle {title} url={data.page.url} />
 	</div>
 
 	<div class="jb-table-row__potential-size">
@@ -65,14 +65,16 @@
 	.jb-table-row {
 		display: flex;
 		align-items: center;
-		height: 150px;
+		height: 110px;
 		gap: var( --gap );
-		padding: 10px;
+		padding: var( --padding );
+		border-bottom: var( --border );
 
 		.jb-table-row__hover-content {
 			display: none;
 		}
 		&:hover {
+			background-color: #f6f7f7;
 			.jb-table-row__hover-content {
 				display: block;
 			}

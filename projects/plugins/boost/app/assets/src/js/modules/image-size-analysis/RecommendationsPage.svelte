@@ -16,10 +16,12 @@
 		gap: 1rem;
 
 		// Table
-		--gap: 24px;
+		--gap: 16px;
 		--padding: 16px;
+		--border-radius: 4px;
 
 		--thumbnail-size: 65px;
+		--border: 1px solid #ddd;
 
 		// Table Columns: Headers
 		--table-header-image: calc( 40% + var( --thumbnail-size ) + var( --gap ) );
@@ -31,5 +33,8 @@
 		--table-column-expand: 65px;
 		--table-column-title: 40%;
 		--table-column-potential-size: 20%;
+
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
 	}
 </style>
