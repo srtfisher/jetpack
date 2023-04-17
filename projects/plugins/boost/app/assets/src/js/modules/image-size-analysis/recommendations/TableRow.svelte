@@ -3,6 +3,7 @@
 	import TableRowExpanded from './TableRowExpanded.svelte';
 	import TableRowHover from './TableRowHover.svelte';
 	import Pill from './components/Pill.svelte';
+	import Thumbnail from './components/Thumbnail.svelte';
 
 	export let data: ImageMeta;
 	let expanded = false;
@@ -11,20 +12,20 @@
 </script>
 
 <div
-	class="table-row"
+	class="jb-table-row"
 	on:mouseenter={() => ( hover = true )}
 	on:mouseleave={() => ( hover = false )}
 >
-	<div class="jb-column-thumbnail">
-		<img src={data.thumbnail} alt={title} width="64" height="64" />
+	<div class="jb-table-row__thumbnail">
+		<Thumbnail url={data.image.url} {title} width={65} height={65} />
 	</div>
 
-	<div class="jb-column-title">
+	<div class="jb-table-row__title">
 		<div><b>{title}</b></div>
 		<div>{data.page.url}</div>
 	</div>
 
-	<div class="jb-column-potential-size">
+	<div class="jb-table-row__potential-size">
 		<Pill color="#facfd2">
 			{Math.round( data.image.weight.current )} KB
 		</Pill>
@@ -34,11 +35,11 @@
 		</Pill>
 	</div>
 
-	<div class="jb-column-hover">
+	<div class="jb-table-row__hover-content">
 		<TableRowHover />
 	</div>
 
-	<div class="jb-column-device">
+	<div class="jb-table-row__device">
 		{#if data.device_type === 'phone'}
 			📱
 		{:else}
@@ -46,12 +47,12 @@
 		{/if}
 	</div>
 
-	<div class="jb-column-page">
+	<div class="jb-table-row__page">
 		<a href={data.page.url}>{data.page.title}</a>
 	</div>
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<div class="jb-column-arrow" on:click={() => ( expanded = ! expanded )}>
+	<div class="jb-table-row__expand" on:click={() => ( expanded = ! expanded )}>
 		<span>{expanded ? '▲' : '▼'}</span>
 	</div>
 </div>
@@ -61,80 +62,55 @@
 {/if}
 
 <style lang="scss">
-	.table-row {
+	.jb-table-row {
 		display: flex;
 		align-items: center;
 		height: 150px;
-		gap: 10px;
+		gap: var( --gap );
 		padding: 10px;
 
-		.jb-column-hover {
+		.jb-table-row__hover-content {
 			display: none;
 		}
 		&:hover {
-			.jb-column-hover {
+			.jb-table-row__hover-content {
 				display: block;
 			}
-			.jb-column-device,
-			.jb-column-page {
+			.jb-table-row__device,
+			.jb-table-row__page {
 				display: none;
 			}
 		}
-
-		// div {
-		// 	border: 1px solid gray;
-		// }
 	}
-	.jb-column-thumbnail {
-		width: 64px;
-		img {
-			display: block;
-		}
+	.jb-table-row__thumbnail {
+		width: 65px;
 	}
-	.jb-column-title {
+	.jb-table-row__title {
 		// header - thumbnail - gap
-		min-width: calc( 40% - 64px - 10px );
+		min-width: var( --table-column-title );
 		margin-right: auto;
 	}
-	.jb-column-hover {
+	.jb-table-row__hover-content {
 		width: 40%;
 	}
-	.jb-column-potential-size {
-		width: 20%;
+	.jb-table-row__potential-size {
+		width: var( --table-column-potential-size );
 
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		gap: calc( var( --gap ) / 2 );
 	}
-	.jb-column-device {
-		width: 64px;
+
+	.jb-table-row__device {
+		width: var( --table-column-device );
 		text-align: center;
 	}
-	.jb-column-page {
+	.jb-table-row__page {
 		flex-grow: 1;
 	}
-	.jb-column-arrow {
+	.jb-table-row__expand {
 		cursor: pointer;
 		text-align: right;
-		width: 64px;
-	}
-
-	.jb-column-hover {
-		// width: calc( 20% + 100px + 64px - 40px );
-	}
-
-	@media ( max-width: 768px ) {
-		.table-row {
-			grid-template-columns: 64px 1fr auto;
-		}
-
-		.device,
-		.page {
-			display: none;
-		}
-	}
-
-	.potential-size {
-		display: flex;
+		width: var( --table-column-expand );
 	}
 </style>
