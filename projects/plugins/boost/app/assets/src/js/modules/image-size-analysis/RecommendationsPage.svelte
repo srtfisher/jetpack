@@ -26,13 +26,13 @@
 		// Table Columns: Headers
 		--table-header-image: calc( 40% + var( --thumbnail-size ) + var( --gap ) );
 		--table-header-device: 65px;
-		--table-header-potential-size: 20%;
+		--table-header-potential-size: 15%;
 
 		// Table Columns: Content
 		--table-column-device: var( --table-header-device );
 		--table-column-expand: 65px;
 		--table-column-title: 40%;
-		--table-column-potential-size: 20%;
+		--table-column-potential-size: var( --table-header-potential-size );
 
 		line-height: 1.5;
 		-webkit-font-smoothing: antialiased;
