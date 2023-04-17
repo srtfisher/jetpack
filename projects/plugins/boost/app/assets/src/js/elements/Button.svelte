@@ -1,4 +1,9 @@
-<button class="button" on:click>
+<script lang="ts">
+	export let small = false;
+	export let fill = false;
+</script>
+
+<button class="button" class:small class:fill on:click>
 	<slot />
 </button>
 
@@ -17,14 +22,25 @@
 
 			background: #ffffff;
 
-			color: var( --jetpack-green-100 );
+			color: #000;
 			border: 1px solid currentColor;
 			border-radius: 4px;
 
 			font-weight: 600;
-			font-size: 16px;
+			font-size: 1rem;
 			letter-spacing: -0.01em;
-			line-height: 24px;
+		}
+		.small {
+			padding: 4px 10px;
+			line-height: 1.1;
+			width: auto;
+			height: auto;
+			font-size: 0.875rem;
+			border-radius: 6px;
+		}
+		.fill {
+			color: #ffffff;
+			background: #000;
 		}
 	}
 </style>
