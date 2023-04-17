@@ -223,6 +223,6 @@ $image_size_analysis = Schema::as_assoc_array([
 	]),
 	'device_type' => Schema::enum(['phone', 'desktop']),
 	'instructions' => Schema::as_string(),
-])->fallback( jetpack_boost_mock_api( 5 ) );
+])->fallback( jetpack_boost_mock_api( 10 ) );
 
 jetpack_boost_register_option( 'image_size_analysis', $image_size_analysis );
