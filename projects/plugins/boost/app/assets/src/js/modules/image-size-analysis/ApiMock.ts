@@ -1,38 +1,34 @@
 import { initializeClient } from '@automattic/jetpack-svelte-data-sync-client';
+import { readable, writable } from 'svelte/store';
 import { z } from 'zod';
 
-
-
-
-const Dimensions = z.object({
+const Dimensions = z.object( {
 	width: z.number(),
 	height: z.number(),
-});
+} );
 
-const ImageMeta = z.object({
+const ImageMeta = z.object( {
 	thumbnail: z.string(),
-	image: z.object({
+	image: z.object( {
 		url: z.string(),
-		dimensions: z.object({
+		dimensions: z.object( {
 			file: Dimensions,
 			expected: Dimensions,
 			size_on_screen: Dimensions,
-		}),
-		weight: z.object({
+		} ),
+		weight: z.object( {
 			current: z.number(),
 			potential: z.number(),
-		}),
-	}),
-	page: z.object({
+		} ),
+	} ),
+	page: z.object( {
 		id: z.number(),
 		url: z.string(),
 		title: z.string(),
-	}),
-	device_type: z.enum(['phone', 'desktop']),
+	} ),
+	device_type: z.enum( [ 'phone', 'desktop' ] ),
 	instructions: z.string(),
-});
-
-import { readable, writable } from 'svelte/store';
+} );
 
 type CategoryState = {
 	name: string;
@@ -41,7 +37,7 @@ type CategoryState = {
 	done: boolean;
 };
 
-export const categories = writable<CategoryState[]>([
+export const categories = writable< CategoryState[] >( [
 	{
 		name: 'Homepage',
 		progress: 100,
@@ -66,11 +62,11 @@ export const categories = writable<CategoryState[]>([
 		// issues: 0, leaving intentionally undefined
 		done: false,
 	},
-]);
+] );
 export type Dimensions = { width: number; height: number };
-export type ImageMeta = z.infer<typeof ImageMeta>;
+export type ImageMeta = z.infer< typeof ImageMeta >;
 
 const client = initializeClient( 'jetpack_boost_ds' );
-const imageMeta = client.createAsyncStore('image_size_analysis', z.array(ImageMeta));
+const imageMeta = client.createAsyncStore( 'image_size_analysis', z.array( ImageMeta ) );
 
 export const imageStore = imageMeta.store;
