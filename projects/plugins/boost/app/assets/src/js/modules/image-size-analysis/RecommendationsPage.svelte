@@ -24,14 +24,16 @@
 		--border: 1px solid #ddd;
 
 		// Table Columns: Headers
-		--table-header-image: calc( 40% + var( --thumbnail-size ) + var( --gap ) );
-		--table-header-device: 65px;
+		--table-header-image: calc(
+			var( --table-column-title ) + var( --thumbnail-size ) + var( --gap )
+		);
+		--table-header-device: 10%;
 		--table-header-potential-size: 15%;
 
 		// Table Columns: Content
 		--table-column-device: var( --table-header-device );
 		--table-column-expand: 65px;
-		--table-column-title: 40%;
+		--table-column-title: 33%;
 		--table-column-potential-size: var( --table-header-potential-size );
 
 		line-height: 1.5;

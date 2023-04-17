@@ -2,6 +2,7 @@
 	import { ImageMeta } from '../ApiMock';
 	import TableRowExpanded from './TableRowExpanded.svelte';
 	import TableRowHover from './TableRowHover.svelte';
+	import Device from './components/Device.svelte';
 	import Pill from './components/Pill.svelte';
 	import RowTitle from './components/RowTitle.svelte';
 	import Thumbnail from './components/Thumbnail.svelte';
@@ -40,11 +41,7 @@
 	</div>
 
 	<div class="jb-table-row__device">
-		{#if data.device_type === 'phone'}
-			📱
-		{:else}
-			💻
-		{/if}
+		<Device device={data.device_type} />
 	</div>
 
 	<div class="jb-table-row__page">
@@ -89,11 +86,13 @@
 	}
 	.jb-table-row__title {
 		// header - thumbnail - gap
-		min-width: var( --table-column-title );
-		margin-right: auto;
+		width: var( --table-column-title );
 	}
 	.jb-table-row__hover-content {
-		width: 40%;
+		width: calc(
+			var( --table-column-potential-size ) + var( --table-column-device ) +
+				var( --table-column-expand )
+		);
 	}
 	.jb-table-row__potential-size {
 		width: var( --table-column-potential-size );

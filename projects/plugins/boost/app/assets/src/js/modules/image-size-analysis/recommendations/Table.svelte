@@ -40,6 +40,7 @@
 	}
 	.jb-table-header__device {
 		width: var( --table-header-device );
+		text-align: center;
 	}
 	.jb-table-header__potential-size {
 		width: var( --table-header-potential-size );
