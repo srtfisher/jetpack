@@ -1,11 +1,18 @@
 <script lang="ts">
 	export let small = false;
 	export let fill = false;
+	export let href = '';
 </script>
 
-<button class="button" class:small class:fill on:click>
-	<slot />
-</button>
+{#if href}
+	<a {href} class="button" class:small class:fill>
+		<slot />
+	</a>
+{:else}
+	<button class="button" class:small class:fill on:click>
+		<slot />
+	</button>
+{/if}
 
 <style lang="scss">
 	// Increasing specificity
