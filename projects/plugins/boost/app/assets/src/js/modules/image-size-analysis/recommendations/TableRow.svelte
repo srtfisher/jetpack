@@ -108,6 +108,10 @@
 	}
 	.jb-table-row__page {
 		flex-grow: 1;
+		a {
+			text-decoration: none;
+			color: var( --gray-60 );
+		}
 	}
 	.jb-table-row__expand {
 		cursor: pointer;
