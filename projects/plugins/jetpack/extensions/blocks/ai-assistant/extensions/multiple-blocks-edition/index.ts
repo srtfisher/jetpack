@@ -2,10 +2,6 @@
  * External dependencies
  */
 import { addFilter } from '@wordpress/hooks';
-/*
- * Internal dependencies
- */
-import withMultipleBlocksEdition from './edit';
 
 const EXTENDED_BLOCKS = [ 'core/paragraph', 'core/heading' ];
 
@@ -16,7 +12,12 @@ function multipleBlocksEdition( settings, name ) {
 
 	return {
 		...settings,
-		edit: withMultipleBlocksEdition( settings.edit ),
+		supports: {
+			...settings.supports,
+			'jetpack/ai': {
+				assistant: true,
+			},
+		},
 	};
 }
 
