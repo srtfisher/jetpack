@@ -13,9 +13,9 @@ import attributes from './attributes';
 import edit from './edit';
 import Icon from './icons/ai-assistant';
 /**
- * Extend:
- * - blocks (Multiple-blocks edition)
+ * Supports and extensions
  */
+import './supports';
 import './extensions/multiple-blocks-edition';
 /**
  * Style dependencies
