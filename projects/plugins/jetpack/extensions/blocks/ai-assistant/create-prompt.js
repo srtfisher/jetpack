@@ -86,7 +86,6 @@ Rules:
 - Do not use the term __JETPACK_AI_ERROR__ in any other context.
 ${ extraRulePromptPart }- Do not include a top level heading by default.
 - Output the generated content in markdown format.
-- Do not include a top level heading by default.
 - Only output generated content ready for publishing.
 - Segment the content into paragraphs as deemed suitable.
 ` +
