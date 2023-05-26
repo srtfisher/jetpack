@@ -26,6 +26,7 @@ import {
 } from './settings';
 import { isNewsletterFeatureEnabled } from './utils';
 import { name } from './';
+import EmailPreview from './email-preview';
 
 const SubscriptionsPanelPlaceholder = ( { children } ) => {
 	return (
@@ -72,6 +73,7 @@ function NewsletterEditorSettingsPanel( {
 				paidSubscribers={ paidSubscribers }
 				showMisconfigurationWarning={ showMisconfigurationWarning }
 			/>
+			<EmailPreview />
 		</PluginDocumentSettingPanel>
 	);
 }
