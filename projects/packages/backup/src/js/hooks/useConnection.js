@@ -1,4 +1,4 @@
-import { JetpackVaultPressBackupLogo } from '@automattic/jetpack-components';
+import { JetpackVaultPressBackupLogo, Testimonial } from '@automattic/jetpack-components';
 import {
 	ConnectScreenRequiredPlan,
 	ConnectScreen,
@@ -13,6 +13,7 @@ import BackupPromotionBlock from '../components/backup-promotion';
 import { BackupVideoSection } from '../components/backup-video-section';
 import { STORE_ID } from '../store';
 import connectImage from './assets/connect-backup.png';
+import timFerrissTestimonial from './assets/tim-ferriss-testimonial.png';
 
 /**
  * Expose the `connectionStatus` state object and `BackupConnectionScreen` to show a component used for connection.
@@ -68,6 +69,16 @@ export default function useConnection() {
 				>
 					<BackupPromotionBlock />
 				</ConnectScreenRequiredPlan>
+
+				<Testimonial
+					quote={ __(
+						'Millions of people depend on my site, and downtime isn’t an option. Jetpack VaultPress Backup handles my site security and backups so I can focus on creation.',
+						'jetpack-backup-pkg'
+					) }
+					author="Tim Ferriss"
+					profession={ __( 'Author / Investor / Podcaster', 'jetpack-backup-pkg' ) }
+					img={ timFerrissTestimonial }
+				/>
 
 				<BackupVideoSection
 					registrationNonce={ registrationNonce }
