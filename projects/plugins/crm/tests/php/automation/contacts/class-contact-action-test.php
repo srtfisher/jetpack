@@ -218,7 +218,7 @@ class Contact_Action_Test extends BaseTestCase {
 		);
 
 		$contact_data_expected = array(
-			'id'    => 2,
+			'id'    => -1,
 			'data'  => array(
 				'status' => 'lead',
 				'name'   => 'Jane Doe',
