@@ -15,10 +15,10 @@ import type React from 'react';
 
 import './style.scss';
 
-const MESSAGE_SEVERITY_WARNING = 'warning';
-const MESSAGE_SEVERITY_ERROR = 'error';
-const MESSAGE_SEVERITY_SUCCESS = 'success';
-const MESSAGE_SEVERITY_INFO = 'info';
+export const MESSAGE_SEVERITY_WARNING = 'warning';
+export const MESSAGE_SEVERITY_ERROR = 'error';
+export const MESSAGE_SEVERITY_SUCCESS = 'success';
+export const MESSAGE_SEVERITY_INFO = 'info';
 
 const messageSeverityTypes = [
 	MESSAGE_SEVERITY_WARNING,
@@ -27,10 +27,12 @@ const messageSeverityTypes = [
 	MESSAGE_SEVERITY_INFO,
 ] as const;
 
+export type MessageSeverityProp = ( typeof messageSeverityTypes )[ number ];
+
 export type MessageProps = {
 	icon?: React.ReactNode;
 	children: React.ReactNode;
-	severity: ( typeof messageSeverityTypes )[ number ];
+	severity: MessageSeverityProp;
 };
 
 const messageIconsMap = {
