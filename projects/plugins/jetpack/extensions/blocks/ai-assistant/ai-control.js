@@ -262,7 +262,11 @@ const AIControl = forwardRef(
 						</div>
 					</div>
 
-					<Message state={ assistantBlockState } userPrompt={ userPrompt } />
+					<Message
+						state={ assistantBlockState }
+						userPrompt={ userPrompt }
+						onAccept={ handleAcceptContent }
+					/>
 				</div>
 			</>
 		);

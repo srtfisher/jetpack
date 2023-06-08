@@ -17,5 +17,11 @@
         flex-grow: 2;
         margin: 0 8px;
         color: var( --jp-gray-40 );
+
+        .components-button.is-link {
+            color: var( --jp-gray-50 );
+            text-decoration: none;
+            font-weight: 400;
+        }
     }
 }

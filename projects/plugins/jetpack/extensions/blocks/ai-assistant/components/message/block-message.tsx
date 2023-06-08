@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import { Button } from '@wordpress/components';
 import { createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 /**
@@ -28,6 +29,7 @@ const blockStateTypes = [
 
 export type BlockMessageProps = MessageProps & {
 	state: ( typeof blockStateTypes )[ number ];
+	onAccept: () => void;
 };
 
 /**
@@ -37,7 +39,7 @@ export type BlockMessageProps = MessageProps & {
  * @returns {React.ReactElement }    Banner component.
  */
 export default function BlockMessage( props: BlockMessageProps ): React.ReactElement {
-	const { state } = props;
+	const { state, onAccept } = props;
 	if ( ! state ) {
 		return null;
 	}
@@ -72,9 +74,9 @@ export default function BlockMessage( props: BlockMessageProps ): React.ReactEle
 
 		case ASSISTANT_STATE_CONTENT_GENERATED:
 			messageText = createInterpolateElement(
-				__( "Done! Don't forget <strong>Accept</strong> the content", 'jetpack' ),
+				__( "Done! Don't forget <button>Accept</button> the content", 'jetpack' ),
 				{
-					strong: <strong />,
+					button: <Button variant="link" onClick={ onAccept } />,
 				}
 			);
 
