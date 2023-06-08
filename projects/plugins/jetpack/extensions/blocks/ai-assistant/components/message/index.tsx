@@ -9,25 +9,25 @@ import {
 	check as success,
 } from '@wordpress/icons';
 /**
- * Types
+ * SeverityTypes
  */
 import type React from 'react';
 
 import './style.scss';
 
-const messageTypes = [ 'warning', 'error', 'success', 'info' ] as const;
+const messageSeverityTypes = [ 'warning', 'error', 'success', 'info' ] as const;
 
 export type MessageProps = {
 	icon?: React.ReactNode;
 	children: React.ReactNode;
-	type: ( typeof messageTypes )[ number ];
+	severity: ( typeof messageSeverityTypes )[ number ];
 };
 
 const messageIconsMap = {
-	[ messageTypes[ 0 ] ]: warning,
-	[ messageTypes[ 1 ] ]: error,
-	[ messageTypes[ 2 ] ]: success,
-	[ messageTypes[ 3 ] ]: info,
+	[ messageSeverityTypes[ 0 ] ]: warning,
+	[ messageSeverityTypes[ 1 ] ]: error,
+	[ messageSeverityTypes[ 2 ] ]: success,
+	[ messageSeverityTypes[ 3 ] ]: info,
 };
 
 /**
@@ -37,13 +37,13 @@ const messageIconsMap = {
  * @returns {React.ReactElement }    Banner component.
  */
 export default function Message( {
-	type,
+	severity,
 	icon = warning,
 	children,
 }: MessageProps ): React.ReactElement {
 	return (
 		<div className="jetpack-ai-assistant__message">
-			<Icon icon={ messageIconsMap[ type ] || icon } />
+			<Icon icon={ messageIconsMap[ severity ] || icon } />
 			<div className="jetpack-ai-assistant__message-content">{ children }</div>
 		</div>
 	);
