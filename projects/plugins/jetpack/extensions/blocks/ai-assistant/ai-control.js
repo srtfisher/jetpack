@@ -266,6 +266,7 @@ const AIControl = forwardRef(
 						state={ assistantBlockState }
 						userPrompt={ userPrompt }
 						onAccept={ handleAcceptContent }
+						onStop={ handleStopSuggestion }
 					/>
 				</div>
 			</>

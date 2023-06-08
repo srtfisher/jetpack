@@ -30,6 +30,7 @@ const blockStateTypes = [
 export type BlockMessageProps = MessageProps & {
 	state: ( typeof blockStateTypes )[ number ];
 	onAccept: () => void;
+	onStop: () => void;
 };
 
 /**
@@ -39,7 +40,7 @@ export type BlockMessageProps = MessageProps & {
  * @returns {React.ReactElement }    Banner component.
  */
 export default function BlockMessage( props: BlockMessageProps ): React.ReactElement {
-	const { state, onAccept } = props;
+	const { state, onAccept, onStop } = props;
 	if ( ! state ) {
 		return null;
 	}
@@ -65,9 +66,9 @@ export default function BlockMessage( props: BlockMessageProps ): React.ReactEle
 
 		case ASSISTANT_STATE_GENERATING:
 			messageText = createInterpolateElement(
-				__( 'Generating content… Click on the <strong>Stop</strong> button to cancel', 'jetpack' ),
+				__( 'Generating content… Click on the <button>Stop</button> button to cancel', 'jetpack' ),
 				{
-					strong: <strong />,
+					button: <Button variant="link" onClick={ onStop } />,
 				}
 			);
 			break;
