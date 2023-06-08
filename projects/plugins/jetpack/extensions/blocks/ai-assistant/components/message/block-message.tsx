@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import { createInterpolateElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
@@ -47,19 +48,36 @@ export default function BlockMessage( props: BlockMessageProps ): React.ReactEle
 
 	switch ( state ) {
 		case ASSISTANT_STATE_INIT:
-			messageText = __( 'Ask for content suggestions.', 'jetpack' ); // 'Ask for content suggestions.
+			messageText = __( 'Ask AI Assistant for anything…', 'jetpack' ); // 'Ask for content suggestions.
 			break;
 
 		case ASSISTANT_STATE_READY_TO_GENERATE:
-			messageText = __( 'Press Enter to send your request.', 'jetpack' );
+			messageText = createInterpolateElement(
+				__( 'Press <em>Enter</em> to send your request.', 'jetpack' ),
+				{
+					em: <em />,
+				}
+			);
+
 			break;
 
 		case ASSISTANT_STATE_GENERATING:
-			messageText = __( 'Generating content… Click on the Stop button to cancel.', 'jetpack' );
+			messageText = createInterpolateElement(
+				__( 'Generating content… Click on the <strong>Stop</strong> button to cancel', 'jetpack' ),
+				{
+					strong: <strong />,
+				}
+			);
 			break;
 
 		case ASSISTANT_STATE_CONTENT_GENERATED:
-			messageText = __( 'Done. Click on the Accept button to insert the content.', 'jetpack' );
+			messageText = createInterpolateElement(
+				__( "Done! Don't forget <strong>Accept</strong> the content", 'jetpack' ),
+				{
+					strong: <strong />,
+				}
+			);
+
 			severity = MESSAGE_SEVERITY_SUCCESS;
 			break;
 	}
