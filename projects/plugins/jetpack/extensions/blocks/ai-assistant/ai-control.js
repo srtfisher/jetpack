@@ -11,7 +11,7 @@ import {
 	ToolbarGroup,
 	Spinner,
 } from '@wordpress/components';
-import { forwardRef, useImperativeHandle, useRef } from '@wordpress/element';
+import { forwardRef, useImperativeHandle, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { image, pencil, update, closeSmall, check } from '@wordpress/icons';
 /*
@@ -66,10 +66,12 @@ const AIControl = forwardRef(
 	) => {
 		const promptUserInputRef = useRef( null );
 		const [ isSm ] = useBreakpointMatch( 'sm' );
+		const [ sentPromt, setSentPrompt ] = useState( '' );
 
 		const handleInputEnter = event => {
 			if ( event.key === 'Enter' && ! event.shiftKey ) {
 				event.preventDefault();
+				setSentPrompt( userPrompt );
 				handleGetSuggestion( 'userPrompt' );
 			}
 		};
@@ -103,11 +105,19 @@ const AIControl = forwardRef(
 			[]
 		);
 
+		/*
+		 * Ready to generate state
+		 * - User is connected
+		 * - User has entered at least 3 characters
+		 * - We are not waiting for a response
+		 * - sent prompt is not the same as the current prompt
+		 */
 		const readyToGenerate = !! (
+			connected &&
 			userPrompt?.length > 2 &&
 			! isWaitingState &&
-			connected &&
-			! requireUpgrade
+			! requireUpgrade &&
+			userPrompt !== sentPromt
 		);
 
 		let assistantBlockState = ASSISTANT_STATE_INIT;
@@ -201,7 +211,10 @@ const AIControl = forwardRef(
 							{ ! isWaitingState ? (
 								<Button
 									className="jetpack-ai-assistant__prompt_button"
-									onClick={ () => handleGetSuggestion( 'userPrompt' ) }
+									onClick={ () => {
+										handleGetSuggestion( 'userPrompt' );
+										setSentPrompt( userPrompt );
+									} }
 									isSmall={ true }
 									disabled={
 										! userPrompt?.length || ! connected || siteRequireUpgrade || requireUpgrade
@@ -249,7 +262,7 @@ const AIControl = forwardRef(
 						</div>
 					</div>
 
-					<Message state={ assistantBlockState } />
+					<Message state={ assistantBlockState } userPrompt={ userPrompt } />
 				</div>
 			</>
 		);
