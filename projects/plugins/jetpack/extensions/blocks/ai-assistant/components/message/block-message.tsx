@@ -5,12 +5,12 @@ import { __ } from '@wordpress/i18n';
 /**
  * Internal dependencies
  */
-import Message, { MESSAGE_SEVERITY_INFO, MESSAGE_SEVERITY_WARNING, MessageProps } from '.';
+import Message, { MESSAGE_SEVERITY_INFO, MESSAGE_SEVERITY_SUCCESS } from '.';
 import './style.scss';
 /**
  * Types
  */
-import type { MessageSeverityProp } from '.';
+import type { MessageSeverityProp, MessageProps } from '.';
 import type React from 'react';
 
 export const ASSISTANT_STATE_INIT = 'init';
@@ -60,7 +60,7 @@ export default function BlockMessage( props: BlockMessageProps ): React.ReactEle
 
 		case ASSISTANT_STATE_CONTENT_GENERATED:
 			messageText = __( 'Done. Click on the Accept button to insert the content.', 'jetpack' );
-			severity = MESSAGE_SEVERITY_WARNING;
+			severity = MESSAGE_SEVERITY_SUCCESS;
 			break;
 	}
 
