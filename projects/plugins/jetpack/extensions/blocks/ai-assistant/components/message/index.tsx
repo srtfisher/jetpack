@@ -15,7 +15,17 @@ import type React from 'react';
 
 import './style.scss';
 
-const messageSeverityTypes = [ 'warning', 'error', 'success', 'info' ] as const;
+const MESSAGE_SEVERITY_WARNING = 'warning';
+const MESSAGE_SEVERITY_ERROR = 'error';
+const MESSAGE_SEVERITY_SUCCESS = 'success';
+const MESSAGE_SEVERITY_INFO = 'info';
+
+const messageSeverityTypes = [
+	MESSAGE_SEVERITY_WARNING,
+	MESSAGE_SEVERITY_ERROR,
+	MESSAGE_SEVERITY_SUCCESS,
+	MESSAGE_SEVERITY_INFO,
+] as const;
 
 export type MessageProps = {
 	icon?: React.ReactNode;
@@ -24,10 +34,10 @@ export type MessageProps = {
 };
 
 const messageIconsMap = {
-	[ messageSeverityTypes[ 0 ] ]: warning,
-	[ messageSeverityTypes[ 1 ] ]: error,
-	[ messageSeverityTypes[ 2 ] ]: success,
-	[ messageSeverityTypes[ 3 ] ]: info,
+	[ MESSAGE_SEVERITY_WARNING ]: warning,
+	[ MESSAGE_SEVERITY_ERROR ]: error,
+	[ MESSAGE_SEVERITY_SUCCESS ]: success,
+	[ MESSAGE_SEVERITY_INFO ]: info,
 };
 
 /**
@@ -37,7 +47,7 @@ const messageIconsMap = {
  * @returns {React.ReactElement }    Banner component.
  */
 export default function Message( {
-	severity,
+	severity = MESSAGE_SEVERITY_INFO,
 	icon = warning,
 	children,
 }: MessageProps ): React.ReactElement {
